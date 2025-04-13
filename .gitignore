@@ -1,1 +1,27 @@
-**/.DS_Store
+# py2app build artifacts
+build/
+dist/
+*.app
+*.icns
+
+
+# virtualenv / conda stuff
+venv/
+env/
+.venv/
+*.egg-info/
+*.egg
+
+# macOS system files
+.DS_Store
+Icon?
+
+# Setup tools logs
+pip-log.txt
+*.log
+
+# Python cache
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
