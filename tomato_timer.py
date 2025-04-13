@@ -1,13 +1,13 @@
-import rumps 
+import rumps
 
-
-class TomatoApp(object):
+class TomatoTimer(rumps.App):
     def __init__(self):
-        self.app = rumps.App("Tomato_Timer", "🍅")
- 
-    def run(self):
-        self.app.run()
- 
-if __name__ == '__main__':
-    app = TomatoApp()
-    app.run()
+        super().__init__("🍅")
+        self.menu = ["Start"]
+
+    @rumps.clicked("Start")
+    def start_timer(self, _):
+        print("Start clicked")
+
+if __name__ == "__main__":
+    TomatoTimer().run()
