@@ -12,6 +12,7 @@ class TomatoTimer(rumps.App):
     
         self.timer = rumps.Timer(self.on_tick, 1)
         self.remaining = 0
+        self.running = False
 
     def on_tick(self, _):
         if self.remaining > 0:
@@ -21,6 +22,7 @@ class TomatoTimer(rumps.App):
             print(f"{mins:02}:{secs:02}")
         else:
             self.timer.stop()
+            self.running = False
             print("Timer done")
 
     # 25 minutes
@@ -28,6 +30,7 @@ class TomatoTimer(rumps.App):
     def start_tomato(self, _):
         print("Start Tomato")
         self.remaining = 25 * 60  
+        self.running = True
         self.timer.start()
 
     # 5 minutes
@@ -35,12 +38,20 @@ class TomatoTimer(rumps.App):
     def start_break(self, _):
         print("Pause clicked")
         self.remaining = 5 * 60  
+        self.running = True
         self.timer.start()
 
     @rumps.clicked("Pause")
     def pause(self, _):
-        print("Pause")                   
-        self.timer.pause()
+        if self.running:
+            print("Pause") 
+            self.timer.stop()
+            self.running = False
+        else:
+            print("Resumed")
+            self.timer.start()
+            self.running = True
+
 
 if __name__ == "__main__":
     TomatoTimer().run()
