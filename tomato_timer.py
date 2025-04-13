@@ -1,4 +1,8 @@
 import rumps
+import subprocess
+
+def play_sound(path):
+    subprocess.run(["afplay", path])
 
 class Tomato_Timer(rumps.App):
     def __init__(self):
@@ -25,10 +29,17 @@ class Tomato_Timer(rumps.App):
         else:
             self.timer.stop()
             self.running = False
+
+            if self.tomato_active:
+                play_sound("/System/Library/Sounds/Hero.aiff")
+                self.title = "🍅 Done! 🍅"
+            elif self.break_active:
+                play_sound("/System/Library/Sounds/Purr.aiff")
+                self.title = "☕ Done! ☕"
+
             self.tomato_active = False
             self.break_active = False
-            self.pause_resume_item.title = "Pause"  
-            rumps.notification("Timer Done", "TOMATOOOW", "The tomato is finished!")
+            self.pause_resume_item.title = "Pause"
 
     def update_title(self):
         mins, secs = divmod(self.remaining, 60)
@@ -42,7 +53,7 @@ class Tomato_Timer(rumps.App):
             self.remaining = 4  # 25 * 60
             self.tomato_active = True
             self.break_active = False
-            self.pause_resume_item.title = "Pause"  
+            self.pause_resume_item.title = "Pause"
         
         self.update_title()
         self.running = True
@@ -56,7 +67,7 @@ class Tomato_Timer(rumps.App):
             self.remaining = 10  # 5 * 60
             self.break_active = True
             self.tomato_active = False
-            self.pause_resume_item.title = "Pause"  
+            self.pause_resume_item.title = "Pause"
         
         self.update_title()
         self.running = True
