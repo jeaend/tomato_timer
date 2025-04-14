@@ -50,7 +50,7 @@ class Tomato_Timer(rumps.App):
     def start_tomato(self, _):
         if not self.tomato_active:
             print("Start Tomato")
-            self.remaining = 4  # 25 * 60
+            self.remaining = 25 * 60
             self.tomato_active = True
             self.break_active = False
             self.pause_resume_item.title = "Pause"
@@ -64,7 +64,7 @@ class Tomato_Timer(rumps.App):
     def start_break(self, _):
         if not self.break_active:
             print("Starting break")
-            self.remaining = 10  # 5 * 60
+            self.remaining = 5 * 60
             self.break_active = True
             self.tomato_active = False
             self.pause_resume_item.title = "Pause"
